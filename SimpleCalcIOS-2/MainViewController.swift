@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var historyViewController = segue.destination as! HistoryViewController
+        let historyViewController = segue.destination as! HistoryViewController
         historyViewController.calculations = calculations
     }
     
@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
                 fact *= i
             }
             label.text = String(fact)
-            calculations.append("\(label.text) FACT = \(fact)")
+            calculations.append("\(numberOnScreen) FACT = \(fact)")
         } else if(performingMath == true ) {
             label.text = String(sender.tag - 1)
             numberOnScreen = Double(label.text!)!
@@ -84,39 +84,51 @@ class MainViewController: UIViewController {
             if (operation == 12) {
                 // Divide
                 label.text = String(previousNumber / numberOnScreen)
-                calculations.append("\(previousNumber) / \(numberOnScreen) = \(label.text)")
+                calculations.append("\(previousNumber) / \(numberOnScreen) = \(previousNumber / numberOnScreen)")
             }
             if (operation == 13) {
                 // Multiply
                 label.text = String(previousNumber * numberOnScreen)
-                calculations.append("\(previousNumber) * \(numberOnScreen) = \(label.text)")
+                calculations.append("\(previousNumber) * \(numberOnScreen) = \(previousNumber * numberOnScreen)")
             }
             if (operation == 14) {
                 // Subtract
                 label.text = String(previousNumber - numberOnScreen)
-                calculations.append("\(previousNumber) - \(numberOnScreen) = \(label.text)")
+                calculations.append("\(previousNumber) - \(numberOnScreen) = \(previousNumber - numberOnScreen)")
             }
             if (operation == 15) {
                 // Add
                 label.text = String(previousNumber + numberOnScreen)
-                calculations.append("\(previousNumber) + \(numberOnScreen) = \(label.text)")
+                calculations.append("\(previousNumber) + \(numberOnScreen) = \(previousNumber + numberOnScreen)")
             }
             if (operation == 17) {
                 // Average
                 var sum : Double = 0
+                var list: String = ""
                 for num in numberList {
                     sum += num
+                    list.append("\(num) ")
                 }
-                label.text = String(sum / Double(numberList.count))
+                let avg = sum / Double(numberList.count)
+                list.append("AVG = \(avg)")
+                calculations.append(list)
+                label.text = String(avg)
             }
             if (operation == 18) {
                 // Count
+                var list: String = ""
+                for num in numberList {
+                    list.append("\(num) ")
+                }
+                list.append("COUNT = \(numberList.count)")
+                calculations.append(list)
                 label.text = String(numberList.count)
             }
             if (operation == 20) {
                 // Mod
                 label.text = String(abs(previousNumber).truncatingRemainder(dividingBy: abs(numberOnScreen)))
-                calculations.append("\(previousNumber) % \(numberOnScreen) = \(label.text)")
+                let ans = abs(previousNumber).truncatingRemainder(dividingBy: abs(numberOnScreen))
+                calculations.append("\(previousNumber) % \(numberOnScreen) = \(ans)")
             }
             numberList = []
         } else if (sender.tag == 11) {
