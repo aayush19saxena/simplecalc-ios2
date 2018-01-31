@@ -42,8 +42,10 @@ class MainViewController: UIViewController {
         } else if(performingMath == true ) {
             label.text = String(sender.tag - 1)
             numberOnScreen = Double(label.text!)!
+            numberList.append(numberOnScreen)
             performingMath = false
         } else {
+            print("here")
             label.text = label.text! + String(sender.tag - 1)
             numberOnScreen = Double(label.text!)!
             numberList.append(numberOnScreen)
@@ -68,11 +70,9 @@ class MainViewController: UIViewController {
                 label.text = "+"
             } else if (sender.tag == 17) {
                 // Average
-                numberList.append(Double(label.text!)!)
                 label.text = "Avg"
             } else if (sender.tag == 18) {
                 // Count
-                numberList.append(Double(label.text!)!)
                 label.text = "Count"
             } else if (sender.tag == 20) {
                 // Mod
@@ -120,6 +120,7 @@ class MainViewController: UIViewController {
                 for num in numberList {
                     list.append("\(num) ")
                 }
+                print(numberList)
                 list.append("COUNT = \(numberList.count)")
                 calculations.append(list)
                 label.text = String(numberList.count)
